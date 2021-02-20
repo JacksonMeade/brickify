@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Brickify Plugin",
+  "description": "This extension makes it wayyyy more fun to browse the news and get the summary you need.",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "icon.png",
+   "default_popup": "popup.html"
+  },
+  "permissions": [
+   "tab"
+   ]
+}
