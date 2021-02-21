@@ -31,11 +31,17 @@ var PAGE_LINKS = [];
 //Returns a Promise
 async function summarizeSite(url) {
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
+    method: 'GET'
+    //redirect: 'follow'
   };
-
-  fetch("https://brixapi.herokuapp.com/api/get/summary?url=" + url, requestOptions)
+  let headers = new Headers();
+  headers.append("Origin", location.origin);
+  var proxy = "https://cors-anywhere.herokuapp.com/";
+  //proxy = "";
+  fetch(proxy+"https://brixapi.herokuapp.com/api/get/summary?url=" + url, {
+    method: "GET",
+    headers: headers
+  })
     .then(response => response.text())
     .then(function (res) {
       return res;
@@ -46,11 +52,17 @@ async function summarizeSite(url) {
 //Returns a Promise
 async function citeSite(url) {
   var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
+    method: 'GET'
+    //redirect: 'follow'
   };
-
-  fetch("https://brixapi.herokuapp.com/api/get/citation?url=" + url, requestOptions)
+  let headers = new Headers();
+  headers.append("Origin", location.origin);
+  var proxy = "https://cors-anywhere.herokuapp.com/";
+  //proxy = "";
+  fetch(proxy+"https://brixapi.herokuapp.com/api/get/citation?url=" + url, {
+    method: "GET",
+    headers: headers
+  })
     .then(response => response.text())
     .then(function (result) {
       return result;
@@ -69,6 +81,8 @@ async function MakeBrick(url) {
     }
 
     // MAKE A BRICK OUT OF THE CITATION DATA
+    console.log(summary);
+    console.log(citation);
     RepresentBrick(url,summary,citation,"Some title here");
 
     urlsTried += (url + " ");
@@ -79,7 +93,7 @@ async function MakeBrick(url) {
 }
 
 function RepresentBrick(url,summ,cite,title) {
-  document.getElementById("sidebar").innerHTML += '<a href=\"'+url+'\"><div class = "brick">'+title+'</div></a>';
+  document.getElementById("sidepanel").innerHTML += '<a href=\"'+url+'\"><div class = "brick">'+title+'</div></a>';
 }
 
 function CreateMap() {
