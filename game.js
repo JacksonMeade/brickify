@@ -32,8 +32,8 @@ function summarizeSite(url) {
     method: 'GET',
     redirect: 'follow'
   };
-  
-  fetch("https://brixapi.herokuapp.com/api/get/summary?url="+url, requestOptions)
+
+  fetch("https://brixapi.herokuapp.com/api/get/summary?url=" + url, requestOptions)
     .then(response => response.text())
     .then(function (res) {
       return res;
@@ -47,8 +47,8 @@ function citeSite(url) {
     method: 'GET',
     redirect: 'follow'
   };
-  
-  fetch("https://brixapi.herokuapp.com/api/get/citation?url="+url, requestOptions)
+
+  fetch("https://brixapi.herokuapp.com/api/get/citation?url=" + url, requestOptions)
     .then(response => response.text())
     .then(function (result) {
       return result;
@@ -235,27 +235,27 @@ var Lava = class Lava {
 
 Lava.prototype.size = new Vec(1, 1);
 
-var Coin = class Coin {
+var Bolt = class Bolt {
   constructor(pos, basePos, wobble) {
     this.pos = pos;
     this.basePos = basePos;
     this.wobble = wobble;
   }
 
-  get type() { return "coin"; }
+  get type() { return "bolt"; }
 
   static create(pos) {
     let basePos = pos.plus(new Vec(0.2, 0.1));
-    return new Coin(basePos, basePos,
+    return new Bolt(basePos, basePos,
       Math.random() * Math.PI * 2);
   }
 }
 
-Coin.prototype.size = new Vec(0.6, 0.6);
+Bolt.prototype.size = new Vec(0.6, 0.6);
 
 var levelChars = {
   ".": "empty", "#": "wall", "+": "lava",
-  "@": Player, "o": Coin,
+  "@": Player, "o": Bolt,
   "=": Lava, "|": Lava, "v": Lava
 };
 
@@ -413,10 +413,10 @@ Lava.prototype.collide = function (state) {
   return new State(state.level, state.actors, "lost");
 };
 
-Coin.prototype.collide = function (state) {
+Bolt.prototype.collide = function (state) {
   let filtered = state.actors.filter(a => a != this);
   let status = state.status;
-  if (!filtered.some(a => a.type == "coin")) status = "won";
+  if (!filtered.some(a => a.type == "bolt")) status = "won";
   return new State(state.level, filtered, status);
 };
 
@@ -433,10 +433,10 @@ Lava.prototype.update = function (time, state) {
 
 var wobbleSpeed = 8, wobbleDist = 0.07;
 
-Coin.prototype.update = function (time) {
+Bolt.prototype.update = function (time) {
   let wobble = this.wobble + time * wobbleSpeed;
   let wobblePos = Math.sin(wobble) * wobbleDist;
-  return new Coin(this.basePos.plus(new Vec(0, wobblePos)),
+  return new Bolt(this.basePos.plus(new Vec(0, wobblePos)),
     this.basePos, wobble);
 };
 

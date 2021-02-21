@@ -24,7 +24,8 @@
   "web_accessible_resources": [
     "images/sky.png",
     "images/tex.jpg",
-    "images/icon128.png"
+    "images/rover.png",
+    "images/bolt.png"
   ],
   "permissions": [
     "tabs",
