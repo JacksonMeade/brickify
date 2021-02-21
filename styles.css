@@ -56,7 +56,7 @@ body {
     overflow: hidden;
   }
   
-div a {
+a.addbrick {
     width: 330px;
     height: 30px;
     margin: 57px 0;
