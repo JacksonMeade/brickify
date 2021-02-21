@@ -25,12 +25,12 @@ body {
                 padding: 0;}
 .background td { padding: 0;          }
 .lava          { background: rgb(255, 100, 100); }
-.wall          { background: url('images/tex.jpg'); opacity: 0.9; background-size: cover; }
+.wall          { background: url("chrome-extension://__MSG_@@extension_id__/images/tex.jpg"); opacity: 0.9; background-size: cover; }
 .empty         { background: black; }
 
 .actor  { position: absolute;  }
 .coin   { background: url('https://us.123rf.com/450wm/ravennka/ravennka1510/ravennka151000071/46939883-seamless-brown-pattern-8bit-pixel-dirt-mud-ground-texture.jpg?ver=6'); opacity: 0.7; }
-.player { background: url('images/icon128.png'); }
+.player { background: url("chrome-extension://__MSG_@@extension_id__/images/icon128.png"); }
 
 .game {
   z-index: 30000;
