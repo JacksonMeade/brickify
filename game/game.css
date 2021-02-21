@@ -1,3 +1,10 @@
+@font-face {
+ font-family: ‘Custom-VT323’;
+ font-style: normal;
+ font-weight: 700;
+ src: url(‘chrome-extension://__MSG_@@extension_id__/fonts/VT323-Regular.ttf’); 
+}
+
 body {
   background: grey;
   padding: 0;
@@ -48,7 +55,8 @@ body {
 }
 
 .lost .player {
-  background: rgb(160, 64, 64);
+  background: url("chrome-extension://__MSG_@@extension_id__/images/rover.png"); background-size: cover; background-repeat: no-repeat; background-position: left;
+  filter: hue-rotate(-70deg);
 }
 .won .player {
   box-shadow: -4px -7px 8px white, 4px -7px 8px white;
@@ -68,16 +76,20 @@ body {
   }
   
 #sidepanel {
+  font-family: 'Custom-VT323', serif;
+  color: red;
+  font-size: 3.2rem;
     position: absolute;
     display: block;
-    width: 31vw;
+    width: 20vw;
     height: 80vh;
-    top: 130px;
-    right: 20px;
-    background-image: url("chrome-extension://__MSG_@@extension_id__/images/brixtack.png");
+    top: 10vh;
+    right: 10vw;
+      box-shadow: 17px 17px 0px 0px rgba(100,100,100,0.4);
+    background: rgb(206, 206, 206);
     z-index: 40000;
     opacity: 1;
-      transition: 0.1;
+      transition: ease-in-out 0.1;
   }
   
 #sidepanel:hover {

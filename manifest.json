@@ -26,7 +26,8 @@
     "images/tex.jpg",
     "images/rover.png",
     "images/bolt.png",
-    "images/brixtack.png"
+    "images/brixtack.png",
+    "fonts/VT323-Regular.ttf"
   ],
   "permissions": [
     "tabs",
