@@ -6,9 +6,10 @@ body {
   margin: 0;
 }
 
-.sources {
+#sources {
   position: fixed;
-  background: white;
+  background: grey;
+  z-index: 40000;
   right: 50px;
   top: 25vh;
   width: 15vw;
@@ -24,7 +25,7 @@ body {
                 padding: 0;}
 .background td { padding: 0;          }
 .lava          { background: rgb(255, 100, 100); }
-.wall          { background: url('../images/tex.jpg'); opacity: 0.9; background-size: cover; }
+.wall          { background: url('images/tex.jpg'); opacity: 0.9; background-size: cover; }
 .empty         { background: black; }
 
 .actor  { position: absolute;  }
@@ -37,7 +38,9 @@ body {
   min-height: 100%;
   padding: 0;
   margin: 0;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .lost .player {

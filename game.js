@@ -1,16 +1,22 @@
 //'use strict';
-
+var gameRun = false;
 var head = document.getElementsByTagName('head')[0];
 
 var board = document.getElementsByTagName('body')[0];
-var overlay = "<div id=\"overlay\">"+board.innerHTML+"</div>";
-
+var overlay = '<div id="sources"></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
+document.addEventListener('click', function () {
+  if (!gameRun) {
+    runGame(DOMDisplay);
+    gameRun = true;
+  }
+});
 board.innerHTML = overlay;
 
 ///////////////////////////////////////////////////// ACTUAL GAME CODE //////////////////////////////////////////////////////
 // Credit where it's due:
-// 2D Physics, Collisions, and Geometry sourced from EloquentJavascript.net, Chapter 16
+// 2D Physics, Collisions, and Geometry sourced from EloquentJavascript.net, Chapter 16 [MIT License] (https://eloquentjavascript.net/code/LICENSE)
 // Other Game Source Code, including digging, webpage analysis, map building, and summary by Jackson Meade for BrickHack
+
 
 var BRICKSIZE = 30;
 var FIT_W = Math.floor(window.innerWidth / BRICKSIZE);
@@ -20,9 +26,11 @@ var SCALE = window.innerWidth / FIT_W;
 var PAGE_LINKS = [];
 
 function CreateMap() {
+  console.log("CreateMap() called. \n FIT_H: " + FIT_H + "\n FIT_W: " + FIT_W);
   var assembly = "";
   for (var i = 0; i < FIT_H; i++) {
     for (var j = 0; j < FIT_W; j++) {
+      console.log("Adding item...");
       if (i == 1 && j == Math.floor(FIT_W / 2)) {
         assembly += "@";
       }
@@ -39,6 +47,7 @@ function CreateMap() {
       }
     }
     assembly += "\n";
+    console.log("Assembly is now... \n" + assembly);
   }
 
   return LinkLinks(assembly);
@@ -46,12 +55,12 @@ function CreateMap() {
 
 function LinkLinks(map) {
 
-  for (var link of document.getElementsByTagName('a')) {
-    var rect = link.getBoundingClientRect();
-    var loc = Griddle(rect.x, rect.y);
-    PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
-    map = map.replaceAt(FindCell(loc[0], loc[1]), "o");
-  }
+  // for (var link of document.getElementsByTagName('a')) {
+  //   var rect = link.getBoundingClientRect();
+  //   var loc = Griddle(rect.x, rect.y);
+  //   PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
+  //   map = map.replaceAt(FindCell(loc[0], loc[1]), "o");
+  // }
 
 
   return map;
@@ -91,6 +100,7 @@ var LEV = null;
 
 var Level = class Level {
   constructor(plan) {
+    console.log("Constructing Level now...");
     let rows = plan.trim().split("\n").map(l => [...l]);
     this.height = rows.length;
     this.width = rows[0].length;
@@ -116,6 +126,7 @@ var State = class State {
   }
 
   static start(level) {
+    console.log("Return new State(" + level + ", " + level.startActors + ", " + "'playing')");
     return new State(level, level.startActors, "playing");
   }
 
@@ -436,7 +447,9 @@ function runAnimation(frameFunc) {
 }
 
 function runLevel(level, Display) {
+  console.log("Running Level");
   VIEW = new Display(document.body, level);
+  console.log("Starting state...");
   let state = State.start(level);
   let ending = 1;
   return new Promise(resolve => {
@@ -458,10 +471,12 @@ function runLevel(level, Display) {
 }
 
 function runGame(Display) {
+  console.log("Running Game");
   var levelMap = CreateMap();
+  console.log("Created Map: " + levelMap);
+  console.log("Building Level...");
   LEV = new Level(levelMap);
+  console.log("Built level at " + LEV);
   let status = runLevel(LEV,
     Display);
 }
-
-runGame(DOMDisplay);
