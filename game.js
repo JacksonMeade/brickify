@@ -26,6 +26,36 @@ var SCALE = window.innerWidth / FIT_W;
 
 var PAGE_LINKS = [];
 
+//Returns a Promise
+function summarizeSite(url) {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("https://brixapi.herokuapp.com/api/get/summary?url="+url, requestOptions)
+    .then(response => response.text())
+    .then(function (res) {
+      return res;
+    })
+    .catch(error => console.log('error', error));
+}
+
+//Returns a Promise
+function citeSite(url) {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("https://brixapi.herokuapp.com/api/get/citation?url="+url, requestOptions)
+    .then(response => response.text())
+    .then(function (result) {
+      return result;
+    })
+    .catch(error => console.log('error', error));
+}
+
 function CreateMap() {
   // console.log("CreateMap() called. \n FIT_H: " + FIT_H + "\n FIT_W: " + FIT_W);
   var assembly = "";
