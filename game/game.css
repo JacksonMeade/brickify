@@ -26,7 +26,10 @@ body {
 .background td { padding: 0;          }
 .lava          { background: rgb(255, 100, 100); }
 .wall          { background: url("chrome-extension://__MSG_@@extension_id__/images/tex.jpg"); opacity: 0.7; background-size: cover; }
-.empty         { background: black; }
+.empty         { 
+  background: url('chrome-extension://__MSG_@@extension_id__/images/sky.png');
+  background-size: 100vw 100vh;
+}
 
 .actor  { position: absolute;  }
 .bolt   { background: url('chrome-extension://__MSG_@@extension_id__/images/bolt.png'); opacity: 0.7; background-size: cover; background-repeat: no-repeat; background-position: left; }

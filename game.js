@@ -18,6 +18,8 @@ board.innerHTML = overlay;
 // 2D Physics, Collisions, and Geometry sourced from EloquentJavascript.net, Chapter 16 [MIT License] (https://eloquentjavascript.net/code/LICENSE)
 // Other Game Source Code, including digging, webpage analysis, map building, and summary by Jackson Meade for BrickHack
 
+var SUMMARIZE = true;
+var CITE = false;
 
 var BRICKSIZE = 30;
 var FIT_W = Math.floor(window.innerWidth / BRICKSIZE);
@@ -54,6 +56,16 @@ async function citeSite(url) {
       return result;
     })
     .catch(error => console.log('error', error));
+}
+
+async function MakeBrick(url) {
+  var summary = await summarizeSite(url);
+  var citation;
+  if (CITE) {
+    citation = await citeSite(url);
+  }
+
+
 }
 
 function CreateMap() {
@@ -240,12 +252,13 @@ var Bolt = class Bolt {
     this.pos = pos;
     this.basePos = basePos;
     this.wobble = wobble;
+
   }
 
   get type() { return "bolt"; }
 
   static create(pos) {
-    let basePos = pos.plus(new Vec(0.2, 0.1));
+    let basePos = pos.plus(new Vec(0.1, 0.1));
     return new Bolt(basePos, basePos,
       Math.random() * Math.PI * 2);
   }
@@ -416,7 +429,12 @@ Lava.prototype.collide = function (state) {
 Bolt.prototype.collide = function (state) {
   let filtered = state.actors.filter(a => a != this);
   let status = state.status;
+
+  let urlOut = (PAGE_LINKS.pop()).url;
+  MakeBrick(urlOut);
+
   if (!filtered.some(a => a.type == "bolt")) status = "won";
+
   return new State(state.level, filtered, status);
 };
 
