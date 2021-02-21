@@ -1,1 +1,19 @@
+[data-tooltip]:before {            
+  position : absolute;
+   content : attr(data-tooltip);
+   opacity : 0;
+   z-index: 40050;
 
+   transition: all 0.15s ease;
+   padding: 0.2rem;
+   color: #333;
+   border-radius: 4px;
+   box-shadow: 2px 2px 1px silver;
+}
+[data-tooltip]:hover:before {        
+  opacity : 1;
+  background: yellow;
+  z-index: 40050;
+  margin-top: -5px;
+  margin-left: 10px;
+}

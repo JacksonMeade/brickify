@@ -5,7 +5,7 @@ var head = document.getElementsByTagName('head')[0];
 
 var board = document.getElementsByTagName('body')[0];
 board.style = "overflow: hidden";
-var overlay = '<div id="sidepanel"><h1>Brixplore</h1></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
+var overlay = '<div id="sidepanel"><h1 style="font-size: 3.2rem; width: 100%;">Brixplore</h1></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
 document.addEventListener('click', function () {
   if (!gameRun) {
     runGame(DOMDisplay);
@@ -84,7 +84,10 @@ async function MakeBrick(url) {
     }
 
     // MAKE A BRICK OUT OF THE CITATION DATA
-    RepresentBrick(url, summary, citation, "Some title here");
+    console.log("SUMMARY");
+    console.log(summary);
+    //console.log(summary);
+    RepresentBrick(url, summary, citation, url.replace(/.+\/\/|www.|\..+/g, '').toUpperCase());
 
     urlsTried += (url + " ");
   }
@@ -93,8 +96,21 @@ async function MakeBrick(url) {
   }
 }
 
+function shows(el) {
+  el.style.display = "block";
+}
+
+function hides(el) {
+  el.style.display="";
+}
+
 function RepresentBrick(url, summ, cite, title) {
-  document.getElementById("sidepanel").innerHTML += '<a href=\"' + url + '\"><div class = "brick">' + title + '</div></a>';
+  var hover = "";
+  
+  if (url.toLowerCase().includes("cnn")) {
+    hover = "data-tooltip="+"\""+"LOADING..."+"\"";
+  }
+  document.getElementById("sidepanel").innerHTML += '<a href=\"' + url + '\"><div class = \"brick\"' +hover+">"+ title + '</div></a>';
 }
 
 function CreateMap() {
@@ -457,7 +473,6 @@ State.prototype.update = function (time, keys) {
 
   let player = newState.player;
   if (this.level.touches(player.pos, player.size, "lava")) {
-    gameRun = false;
     return new State(this.level, actors, "lost");
   }
 
@@ -477,7 +492,6 @@ function overlap(actor1, actor2) {
 }
 
 Lava.prototype.collide = function (state) {
-  gameRun = false;
   return new State(state.level, state.actors, "lost");
 };
 
