@@ -25,7 +25,8 @@
     "images/sky.png",
     "images/tex.jpg",
     "images/rover.png",
-    "images/bolt.png"
+    "images/bolt.png",
+    "images/brixtack.png"
   ],
   "permissions": [
     "tabs",

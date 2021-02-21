@@ -4,7 +4,7 @@ var gameRun = false;
 var head = document.getElementsByTagName('head')[0];
 
 var board = document.getElementsByTagName('body')[0];
-var overlay = '<div id="sources"></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
+var overlay = '<div id="sidepanel"></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
 document.addEventListener('click', function () {
   if (!gameRun) {
     runGame(DOMDisplay);
