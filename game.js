@@ -63,12 +63,13 @@ urlsTried = "";
 async function MakeBrick(url) {
   if (!urlsTried.includes(url)) {
     var summary = await summarizeSite(url);
-    var citation;
+    var citation = null;
     if (CITE) {
       citation = await citeSite(url);
     }
 
     // MAKE A BRICK OUT OF THE CITATION DATA
+    RepresentBrick(url,summary,citation,title);
 
     urlsTried += (url + " ");
   }
@@ -77,8 +78,8 @@ async function MakeBrick(url) {
   }
 }
 
-function RepresentBrick(title) {
-  document.getElementById("sidebar").innerHTML += '<div class = "brick"></div>';
+function RepresentBrick(url,summ,cite,title) {
+  document.getElementById("sidebar").innerHTML += '<a href=\"'+url+'\"><div class = "brick">'+title+'</div></a>';
 }
 
 function CreateMap() {
