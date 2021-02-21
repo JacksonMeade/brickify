@@ -38,9 +38,10 @@ async function summarizeSite(url) {
   let headers = new Headers();
   headers.append("Origin", location.origin);
   var proxy = "https://cors-anywhere.herokuapp.com/";
-  //proxy = "";
+  proxy = "";
   fetch(proxy + "https://brixapi.herokuapp.com/api/get/summary?url=" + url, {
     method: "GET",
+    mode: "no-cors",
     headers: headers
   })
     .then(response => response.text())
@@ -59,9 +60,10 @@ async function citeSite(url) {
   let headers = new Headers();
   headers.append("Origin", location.origin);
   var proxy = "https://cors-anywhere.herokuapp.com/";
-  //proxy = "";
+  proxy = "";
   fetch(proxy + "https://brixapi.herokuapp.com/api/get/citation?url=" + url, {
     method: "GET",
+    mode: "no-cors",
     headers: headers
   })
     .then(response => response.text())
