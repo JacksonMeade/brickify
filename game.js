@@ -58,14 +58,27 @@ async function citeSite(url) {
     .catch(error => console.log('error', error));
 }
 
+urlsTried = "";
+
 async function MakeBrick(url) {
-  var summary = await summarizeSite(url);
-  var citation;
-  if (CITE) {
-    citation = await citeSite(url);
+  if (!urlsTried.includes(url)) {
+    var summary = await summarizeSite(url);
+    var citation;
+    if (CITE) {
+      citation = await citeSite(url);
+    }
+
+    // MAKE A BRICK OUT OF THE CITATION DATA
+
+    urlsTried += (url + " ");
   }
+  else {
+    return null;
+  }
+}
 
-
+function RepresentBrick(title) {
+  document.getElementById("sidebar").innerHTML += '<div class = "brick"></div>';
 }
 
 function CreateMap() {
@@ -106,7 +119,7 @@ function LinkLinks(map) {
       var loc = Griddle(rect.x, rect.y);
       PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
       var indexOfChoice = FindCell(loc[0], loc[1]);
-      if (final.charAt(indexOfChoice) != "@") {
+      if ((indexOfChoice > (FIT_W * 4)) && (final.charAt(indexOfChoice) != "@")) {
         //console.log("Replacing at " + indexOfChoice + " from: \n" + map);
         final = final.replaceAt(indexOfChoice, "o");
         //console.log("MAP IS NOW \n" + map);
