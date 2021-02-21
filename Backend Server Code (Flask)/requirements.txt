@@ -1,0 +1,11 @@
+pymongo
+flask
+flask_discord
+gunicorn
+flask-talisman
+flask_session
+dnspython
+flask_pymongo
+discord_webhook
+bs4
+lxml
