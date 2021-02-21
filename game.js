@@ -272,13 +272,13 @@ var Bolt = class Bolt {
   get type() { return "bolt"; }
 
   static create(pos) {
-    let basePos = pos.plus(new Vec(0.1, 0.1));
+    let basePos = pos.plus(new Vec(-0.3, -0.2));
     return new Bolt(basePos, basePos,
       Math.random() * Math.PI * 2);
   }
 }
 
-Bolt.prototype.size = new Vec(0.6, 0.6);
+Bolt.prototype.size = new Vec(1, 1);
 
 var levelChars = {
   ".": "empty", "#": "wall", "+": "lava",
@@ -463,7 +463,7 @@ Lava.prototype.update = function (time, state) {
   }
 };
 
-var wobbleSpeed = 8, wobbleDist = 0.07;
+var wobbleSpeed = 0, wobbleDist = 0;
 
 Bolt.prototype.update = function (time) {
   let wobble = this.wobble + time * wobbleSpeed;
