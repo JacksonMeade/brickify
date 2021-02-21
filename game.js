@@ -1,7 +1,7 @@
 'use strict';
 
 var head = document.getElementsByTagName('head')[0];
-var overboard = head.innerHTML + "<link rel="stylesheet" href="game/game.css">"
+var overboard = head.innerHTML + "<link rel=\"stylesheet\" href=\"game/game.css\">";
 
 var board = document.getElementsByTagName('body')[0];
 var overlay = board.innerHTML + "<script>runGame(DOMDisplay);</script>";
@@ -15,7 +15,7 @@ board.innerHTML = overlay;
 
 var BRICKSIZE = 30;
 var FIT_W = Math.floor(window.innerWidth / BRICKSIZE);
-var FIT_H = Math.floor(window.innerHeight / BRICKSIZE)
+var FIT_H = Math.floor(window.innerHeight / BRICKSIZE);
 var SCALE = window.innerWidth / FIT_W;
 
 var PAGE_LINKS = [];
