@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Brickify Plugin",
+  "name": "Brixplore",
   "description": "This extension makes it wayyyy more fun to browse the news and get the summary you need.",
   "version": "1.0",
   "background": {
