@@ -27,7 +27,7 @@ var SCALE = window.innerWidth / FIT_W;
 var PAGE_LINKS = [];
 
 //Returns a Promise
-function summarizeSite(url) {
+async function summarizeSite(url) {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -42,7 +42,7 @@ function summarizeSite(url) {
 }
 
 //Returns a Promise
-function citeSite(url) {
+async function citeSite(url) {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
