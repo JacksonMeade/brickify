@@ -1,3 +1,4 @@
+
 //'use strict';
 var gameRun = false;
 var head = document.getElementsByTagName('head')[0];
@@ -26,11 +27,11 @@ var SCALE = window.innerWidth / FIT_W;
 var PAGE_LINKS = [];
 
 function CreateMap() {
-  console.log("CreateMap() called. \n FIT_H: " + FIT_H + "\n FIT_W: " + FIT_W);
+  // console.log("CreateMap() called. \n FIT_H: " + FIT_H + "\n FIT_W: " + FIT_W);
   var assembly = "";
   for (var i = 0; i < FIT_H; i++) {
     for (var j = 0; j < FIT_W; j++) {
-      console.log("Adding item...");
+      // console.log("Adding item...");
       if (i == 1 && j == Math.floor(FIT_W / 2)) {
         assembly += "@";
       }
@@ -47,7 +48,7 @@ function CreateMap() {
       }
     }
     assembly += "\n";
-    console.log("Assembly is now... \n" + assembly);
+    // console.log("Assembly is now... \n" + assembly);
   }
 
   return LinkLinks(assembly);
@@ -55,19 +56,24 @@ function CreateMap() {
 
 function LinkLinks(map) {
 
+  var final = map;
+
   for (var link of document.getElementsByTagName('a')) {
-    var rect = link.getBoundingClientRect();
-    var loc = Griddle(rect.x, rect.y);
-    PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
-    var indexOfChoice = FindCell(loc[0], loc[1]);
-    console.log("Replacing at " + indexOfChoice + " from: \n" + map);
-    if (map.charAt(indexOfChoice) != "@");
-    map = map.replaceAt(indexOfChoice, "o");
-    console.log("MAP IS NOW \n" + map);
+    if (InView(link)) {
+      var rect = link.getBoundingClientRect();
+      var loc = Griddle(rect.x, rect.y);
+      PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
+      var indexOfChoice = FindCell(loc[0], loc[1]);
+      if (final.charAt(indexOfChoice) != "@") {
+        //console.log("Replacing at " + indexOfChoice + " from: \n" + map);
+        final = final.replaceAt(indexOfChoice, "o");
+        //console.log("MAP IS NOW \n" + map);
+      }
+    }
   }
 
 
-  return map;
+  return final;
 }
 
 // this function regulates the x and y coordinates of an item to the 2D game grid
@@ -98,13 +104,23 @@ String.prototype.replaceAt = function (index, replacement) {
   return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
 
+function InView(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
 // DIGGING GAME CODE
 var VIEW = null;
 var LEV = null;
 
 var Level = class Level {
   constructor(plan) {
-    console.log("Constructing Level now...");
+    //console.log("Constructing Level now...");
     let rows = plan.trim().split("\n").map(l => [...l]);
     this.height = rows.length;
     this.width = rows[0].length;
@@ -130,7 +146,7 @@ var State = class State {
   }
 
   static start(level) {
-    console.log("Return new State(" + level + ", " + level.startActors + ", " + "'playing')");
+    //console.log("Return new State(" + level + ", " + level.startActors + ", " + "'playing')");
     return new State(level, level.startActors, "playing");
   }
 
@@ -453,9 +469,9 @@ function runAnimation(frameFunc) {
 }
 
 function runLevel(level, Display) {
-  console.log("Running Level");
+  //console.log("Running Level");
   VIEW = new Display(document.body, level);
-  console.log("Starting state...");
+  //console.log("Starting state...");
   let state = State.start(level);
   let ending = 1;
   return new Promise(resolve => {
@@ -477,12 +493,12 @@ function runLevel(level, Display) {
 }
 
 function runGame(Display) {
-  console.log("Running Game");
+  //console.log("Running Game");
   var levelMap = CreateMap();
-  console.log("Created Map: " + levelMap);
-  console.log("Building Level...");
+  //console.log("Created Map: " + levelMap);
+  //console.log("Building Level...");
   LEV = new Level(levelMap);
-  console.log("Built level at " + LEV);
+  //console.log("Built level at " + LEV);
   let status = runLevel(LEV,
     Display);
 }
