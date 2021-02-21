@@ -33,6 +33,7 @@ body {
 .player { background: rgb(64, 64, 64); }
 
 .game {
+  z-index: 30000;
   overflow: hidden;
   min-width: 100%;
   min-height: 100%;

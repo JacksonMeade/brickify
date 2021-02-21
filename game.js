@@ -55,12 +55,16 @@ function CreateMap() {
 
 function LinkLinks(map) {
 
-  // for (var link of document.getElementsByTagName('a')) {
-  //   var rect = link.getBoundingClientRect();
-  //   var loc = Griddle(rect.x, rect.y);
-  //   PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
-  //   map = map.replaceAt(FindCell(loc[0], loc[1]), "o");
-  // }
+  for (var link of document.getElementsByTagName('a')) {
+    var rect = link.getBoundingClientRect();
+    var loc = Griddle(rect.x, rect.y);
+    PAGE_LINKS.push(new Link(loc[0], loc[1], link.href));
+    var indexOfChoice = FindCell(loc[0], loc[1]);
+    console.log("Replacing at " + indexOfChoice + " from: \n" + map);
+    if (map.charAt(indexOfChoice) != "@");
+    map = map.replaceAt(indexOfChoice, "o");
+    console.log("MAP IS NOW \n" + map);
+  }
 
 
   return map;
@@ -87,7 +91,7 @@ class Link {
 
 // Find where a cell is on the grid
 function FindCell(x, y) {
-  return ((y - 1) * FIT_W) + x + y;
+  return ((((y - 1) >= 0) ? (y - 1) : 0) * FIT_W) + x + y;
 }
 
 String.prototype.replaceAt = function (index, replacement) {
@@ -156,7 +160,7 @@ var Player = class Player {
   get type() { return "player"; }
 
   static create(pos) {
-    return new Player(pos.plus(new Vec(0, -0.5)),
+    return new Player(pos.plus(new Vec(0, -0.8)),
       new Vec(0, 0));
   }
 }
