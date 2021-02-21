@@ -22,7 +22,8 @@
     "128": "images/icon128.png"
   },
   "web_accessible_resources": [
-    "images/*"
+    "images/*",
+    "fonts/VT323-Regular.ttf"
   ],
   "permissions": [
     "tabs",

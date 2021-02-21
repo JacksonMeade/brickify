@@ -94,7 +94,7 @@ async function MakeBrick(url) {
 }
 
 function RepresentBrick(url, summ, cite, title) {
-  document.getElementById("sidebar").innerHTML += '<a href=\"' + url + '\"><div class = "brick">' + title + '</div></a>';
+  document.getElementById("sidepanel").innerHTML += '<a href=\"' + url + '\"><div class = "brick">' + title + '</div></a>';
 }
 
 function CreateMap() {
