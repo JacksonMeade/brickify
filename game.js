@@ -463,7 +463,7 @@ Lava.prototype.update = function (time, state) {
   }
 };
 
-var wobbleSpeed = 0.07, wobbleDist = 0.07;
+var wobbleSpeed = 8, wobbleDist = 0.07;
 
 Bolt.prototype.update = function (time) {
   let wobble = this.wobble + time * wobbleSpeed;
