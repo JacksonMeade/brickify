@@ -4,7 +4,8 @@ var gameRun = false;
 var head = document.getElementsByTagName('head')[0];
 
 var board = document.getElementsByTagName('body')[0];
-var overlay = '<div id="sidepanel"></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
+board.style = "overflow: hidden";
+var overlay = '<div id="sidepanel"><h1 style="font-size: 3.2rem; width: 100%;">Brixplore</h1></div><script type = "text/javascript"></script>' + "\n" + board.innerHTML;
 document.addEventListener('click', function () {
   if (!gameRun) {
     runGame(DOMDisplay);
@@ -38,7 +39,7 @@ async function summarizeSite(url) {
   headers.append("Origin", location.origin);
   var proxy = "https://cors-anywhere.herokuapp.com/";
   //proxy = "";
-  fetch(proxy+"https://brixapi.herokuapp.com/api/get/summary?url=" + url, {
+  fetch(proxy + "https://brixapi.herokuapp.com/api/get/summary?url=" + url, {
     method: "GET",
     headers: headers
   })
@@ -59,7 +60,7 @@ async function citeSite(url) {
   headers.append("Origin", location.origin);
   var proxy = "https://cors-anywhere.herokuapp.com/";
   //proxy = "";
-  fetch(proxy+"https://brixapi.herokuapp.com/api/get/citation?url=" + url, {
+  fetch(proxy + "https://brixapi.herokuapp.com/api/get/citation?url=" + url, {
     method: "GET",
     headers: headers
   })
@@ -81,9 +82,7 @@ async function MakeBrick(url) {
     }
 
     // MAKE A BRICK OUT OF THE CITATION DATA
-    console.log(summary);
-    console.log(citation);
-    RepresentBrick(url,summary,citation,"Some title here");
+    RepresentBrick(url, summary, citation, "Some title here");
 
     urlsTried += (url + " ");
   }
@@ -92,8 +91,8 @@ async function MakeBrick(url) {
   }
 }
 
-function RepresentBrick(url,summ,cite,title) {
-  document.getElementById("sidepanel").innerHTML += '<a href=\"'+url+'\"><div class = "brick">'+title+'</div></a>';
+function RepresentBrick(url, summ, cite, title) {
+  document.getElementById("sidebar").innerHTML += '<a href=\"' + url + '\"><div class = "brick">' + title + '</div></a>';
 }
 
 function CreateMap() {
@@ -121,7 +120,7 @@ function CreateMap() {
     // console.log("Assembly is now... \n" + assembly);
   }
 
-  return LinkLinks(assembly);
+  return AddLava(LinkLinks(assembly));
 }
 
 function LinkLinks(map) {
@@ -144,6 +143,30 @@ function LinkLinks(map) {
 
 
   return final;
+}
+
+function AddLava(map) {
+  var complete = map;
+
+  for (var image of document.getElementsByTagName('img')) {
+    if (InView(image)) {
+      var rect = image.getBoundingClientRect();
+      var loc = Griddle(rect.x, rect.y);
+      var indexOfChoice = FindCell(loc[0], loc[1]);
+      if ((indexOfChoice > (FIT_W * 8)) && (complete.charAt(indexOfChoice) != "@")) {
+        complete = complete.replaceAt(indexOfChoice, "v");
+        let lavaGroup = [(indexOfChoice - (FIT_W), indexOfChoice + (FIT_W)), (indexOfChoice - (1)), (indexOfChoice + (1)), (indexOfChoice - (FIT_W + 1)), (indexOfChoice - (FIT_W - 1)), (indexOfChoice + (FIT_W + 1)), (indexOfChoice + (FIT_W - 1))];
+        console.log("LAVA GROUP IS " + lavaGroup);
+        for (var block of lavaGroup) {
+          if (complete.charAt(block) != "@" && complete.charAt(block != "o")) {
+            complete.replaceAt(block, "=");
+          }
+        }
+      }
+    }
+  }
+
+  return complete;
 }
 
 // this function regulates the x and y coordinates of an item to the 2D game grid
@@ -264,11 +287,11 @@ var Lava = class Lava {
 
   static create(pos, ch) {
     if (ch == "=") {
-      return new Lava(pos, new Vec(2, 0));
+      return new Lava(pos, new Vec(0.5, 0.5));
     } else if (ch == "|") {
-      return new Lava(pos, new Vec(0, 2));
+      return new Lava(pos, new Vec(0.5, 0.5));
     } else if (ch == "v") {
-      return new Lava(pos, new Vec(0, 3), pos);
+      return new Lava(pos, new Vec(0.5, 0.5), pos);
     }
   }
 }
@@ -461,7 +484,11 @@ Bolt.prototype.collide = function (state) {
   let urlOut = (PAGE_LINKS.pop()).url;
   MakeBrick(urlOut);
 
-  if (!filtered.some(a => a.type == "bolt")) status = "won";
+  if (!filtered.some(a => a.type == "bolt")) {
+    status = "won";
+    board.style = "overflow: auto;"
+    document.getElementById("sidepanel").remove();
+  }
 
   return new State(state.level, filtered, status);
 };

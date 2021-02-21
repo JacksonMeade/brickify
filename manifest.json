@@ -22,7 +22,16 @@
     "128": "images/icon128.png"
   },
   "web_accessible_resources": [
+<<<<<<< HEAD
     "images/*"
+=======
+    "images/sky.png",
+    "images/tex.jpg",
+    "images/rover.png",
+    "images/bolt.png",
+    "images/brixtack.png",
+    "fonts/VT323-Regular.ttf"
+>>>>>>> 4dbe0903f68b714e2e1389a347eac45dc09fce9d
   ],
   "permissions": [
     "tabs",
