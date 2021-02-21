@@ -69,7 +69,7 @@ async function MakeBrick(url) {
     }
 
     // MAKE A BRICK OUT OF THE CITATION DATA
-    RepresentBrick(url,summary,citation,title);
+    RepresentBrick(url,summary,citation,"Some title here");
 
     urlsTried += (url + " ");
   }
