@@ -316,8 +316,10 @@ Level.prototype.touches = function (pos, size, type, remove = false) {
             var tables = document.getElementsByClassName("background");
             for (var table of tables) {
               let ofInterest = table.childNodes.item(y).childNodes.item(x);
-              ofInterest.classList.remove("wall");
-              ofInterest.classList.add("empty");
+              if (ofInterest) {
+                ofInterest.classList.remove("wall");
+                ofInterest.classList.add("empty");
+              }
             }
           }
         }
