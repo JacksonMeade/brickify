@@ -32,7 +32,7 @@ body {
                 padding: 0;}
 .background td { padding: 0;          }
 .lava          { background: url("chrome-extension://__MSG_@@extension_id__/images/lava.png");}
-.wall          { background: url("chrome-extension://__MSG_@@extension_id__/images/tex.jpg"); opacity: 0.7; background-size: cover; }
+.wall          { background: url("chrome-extension://__MSG_@@extension_id__/images/mars_dirt.png"); opacity: 0.7;  }
 .empty         { 
   background: url('chrome-extension://__MSG_@@extension_id__/images/sky.png');
   background-size: 100vw 100vh;
