@@ -1,10 +1,9 @@
-'use strict';
+//'use strict';
 
 var head = document.getElementsByTagName('head')[0];
-var overboard = head.innerHTML + "<link rel=\"stylesheet\" href=\"game/game.css\">";
 
 var board = document.getElementsByTagName('body')[0];
-var overlay = board.innerHTML + "<script>runGame(DOMDisplay);</script>";
+var overlay = "<div id=\"overlay\">"+board.innerHTML+"</div>";
 
 board.innerHTML = overlay;
 
@@ -22,8 +21,8 @@ var PAGE_LINKS = [];
 
 function CreateMap() {
   var assembly = "";
-  for (i = 0; i < FIT_H; i++) {
-    for (j = 0; j < FIT_W; j++) {
+  for (var i = 0; i < FIT_H; i++) {
+    for (var j = 0; j < FIT_W; j++) {
       if (i == 1 && j == Math.floor(FIT_W / 2)) {
         assembly += "@";
       }
@@ -464,3 +463,5 @@ function runGame(Display) {
   let status = runLevel(LEV,
     Display);
 }
+
+runGame(DOMDisplay);
